@@ -1,0 +1,25 @@
+{
+  "name": "laundry-realtime",
+  "private": true,
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsx --watch --env-file .env.local src/server.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.12.1",
+  "devDependencies": {
+    "@types/node": "^24.0.1",
+    "tsup": "^8.5.0",
+    "tsx": "^4.20.2",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "fastify": "^5.4.0",
+    "fastify-socket.io": "^5.1.0",
+    "socket.io": "^4.8.1"
+  }
+}
