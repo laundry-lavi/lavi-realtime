@@ -1,0 +1,8 @@
+services:
+  lavi_realtime_db:
+    container_name: lavi_realtime_db
+    image: bitnami/postgresql
+    environment:
+      POSTGRES_PASSWORD: "root"
+    ports:
+      - 5432:5432
