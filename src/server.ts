@@ -7,17 +7,16 @@ import {
   validatorCompiler,
   serializerCompiler,
 } from "fastify-type-provider-zod";
+import { logger } from "./log/logger";
+import { db } from "./db/drizzle";
 
-export const app = Fastify({
-  logger: true,
-});
+export const app = Fastify();
 
 const run = async () => {
   await app.register(fastifySocketIO);
-
-  app.get("/", async () => {
-    return { hello: "world " };
-  });
+  logger.info("Testing database connection...");
+  await db.execute("SELECT 1");
+  logger.info("Database connection ok.");
 
   app.setValidatorCompiler(validatorCompiler);
   app.setSerializerCompiler(serializerCompiler);
@@ -25,19 +24,22 @@ const run = async () => {
   app.register(async (app, _) => {
     app.addHook("onReady", (done) => {
       socketIoServer(app);
+      logger.info("Socket-IO initialized.");
       done();
     });
   });
 
   app.register(router);
 
-  app.listen({ port: 7750 }, (err, address) => {
+  const PORT = process.env.PORT ? process.env.PORT : "7750";
+
+  app.listen({ port: Number(PORT) }, (err, address) => {
     if (err) {
       app.log.error(err);
       process.exit(1);
     }
 
-    console.log(`Server running: ${address}`);
+    logger.info(`Server running at: ${address}`);
   });
 };
 
