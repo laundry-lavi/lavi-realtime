@@ -1,8 +1,14 @@
 import Fastify from "fastify";
 import fastifySocketIO from "fastify-socket.io";
 import { socketIoServer } from "./socket";
+import { router } from "./router";
 
-const app = Fastify({
+import {
+  validatorCompiler,
+  serializerCompiler,
+} from "fastify-type-provider-zod";
+
+export const app = Fastify({
   logger: true,
 });
 
@@ -13,12 +19,17 @@ const run = async () => {
     return { hello: "world " };
   });
 
+  app.setValidatorCompiler(validatorCompiler);
+  app.setSerializerCompiler(serializerCompiler);
+
   app.register(async (app, _) => {
     app.addHook("onReady", (done) => {
       socketIoServer(app);
       done();
     });
   });
+
+  app.register(router);
 
   app.listen({ port: 7750 }, (err, address) => {
     if (err) {
