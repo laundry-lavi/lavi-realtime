@@ -1,8 +1,9 @@
 import { FastifyInstance } from "fastify";
+import { logger } from "./log/logger";
 
 export async function socketIoServer(app: FastifyInstance) {
   app.io.on("connection", (socket) => {
-    console.log("Novo cliente conectado:", socket.id);
+    logger.info(`New socket connected: ${socket.id}`);
 
     socket.on("mensagem", (mensagem) => {
       console.log("Recebeu", mensagem);
