@@ -1,7 +1,7 @@
 import { FastifyInstance } from "fastify";
 import { logger } from "./log/logger";
 
-export async function socketIoServer(app: FastifyInstance) {
+export function socketIoServer(app: FastifyInstance) {
   app.io.on("connection", (socket) => {
     logger.info(`New socket connected: ${socket.id}`);
 
