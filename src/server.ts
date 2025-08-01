@@ -9,10 +9,13 @@ import {
 } from "fastify-type-provider-zod";
 import { logger } from "./log/logger";
 import { db } from "./db/drizzle";
+import { verify_env } from "./config";
 
 export const app = Fastify();
 
 const run = async () => {
+  verify_env();
+
   await app.register(fastifySocketIO);
   logger.info("Testing database connection...");
   await db.execute("SELECT 1");
