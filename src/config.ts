@@ -6,7 +6,7 @@ const EnvConfig = new Map<string, string>(
   )
 );
 
-const vars = ["DATABASE_URL"];
+const vars = ["MONGO_URL"];
 
 export const verify_env = () => {
   const missingVars = vars.filter((v) => !EnvConfig.has(v));
@@ -16,4 +16,3 @@ export const verify_env = () => {
 };
 
 export default EnvConfig;
-
