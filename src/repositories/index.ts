@@ -1,8 +1,8 @@
-import { NotificationModel } from "../entities";
+import { INotification } from "../models/notification";
 
 export interface INotificationRepository {
-  insert(data: NotificationModel): Promise<void>;
-  selectByOwner(id: string): Promise<NotificationModel[]>;
+  insert(data: INotification): Promise<void>;
+  selectByOwner(id: string): Promise<INotification[]>;
   updateStatus(id: string, new_status: string): Promise<void>;
-  filterByType(id: string, type: string): Promise<NotificationModel[]>;
+  filterByType(id: string, type: string): Promise<INotification[]>;
 }
