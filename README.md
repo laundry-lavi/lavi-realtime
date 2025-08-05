@@ -1,4 +1,4 @@
-# Laundry Real Time
+# Laví Realtime
 
 ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
 ![Fastify](https://img.shields.io/badge/fastify-%23000000.svg?style=for-the-badge&logo=fastify&logoColor=white)
@@ -17,10 +17,12 @@ Eduardo Rossi e Gabriel Durbano.
 
 DESENVOLVEDORES:
 
-- André Dias [https-dre](https://github.com/https-dre)
-- Arthur Rolemberg [Massivo5040](https://github.com/Massivo5040)
+- André Dias [@https-dre](https://github.com/https-dre)
+- Arthur Rolemberg [@Massivo5040](https://github.com/Massivo5040)
 
 ORIENTADORA: Nathane De Castro.
+
+Veja mais sobre o desenvolvimento [aqui](https://github.com/laundry-lavi/).
 
 ## Contato
 
