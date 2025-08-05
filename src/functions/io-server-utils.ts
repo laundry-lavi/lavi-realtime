@@ -9,17 +9,13 @@ export enum IoServerStatus {
 
 type IoServerResponse<T> = {
   timestamp: Date;
-  data?: any | T;
+  data?: T;
   status: IoServerStatus;
   err?: Error;
   $metadata?: any;
 }
 
-type SocketId = {
-  socketId: string;
-}
-
-export const EmitToOneSocket = async (id: string, body: any): Promise<IoServerResponse<undefined>> => {
+export const EmitToOne = async (id: string, body: any): Promise<IoServerResponse<undefined>> => {
   const allSockets = await app.io.fetchSockets();
 
   for(const socket of allSockets) {
@@ -28,7 +24,7 @@ export const EmitToOneSocket = async (id: string, body: any): Promise<IoServerRe
       return {
         timestamp: new Date(),
         $metadata: {
-          requestData: body,
+          request: { data: body, id },
           socketId: socket.id
         },
         status: IoServerStatus.OK
@@ -53,9 +49,10 @@ export const FindSocketById = async (id: string):
         timestamp: new Date(),
         data: socket,
         $metadata: {
-          requestData: {
+          request: {
             id
-          }
+          },
+          socketId: socket.id
         },
         status: IoServerStatus.OK
       }
@@ -65,5 +62,34 @@ export const FindSocketById = async (id: string):
   return {
     timestamp: new Date(),
     status: IoServerStatus.NOT_FOUND
+  }
+}
+
+export const EmitToAll = async (event: string, data: any): 
+  Promise<IoServerResponse<undefined>> => {
+  try {
+    app.io.emit(event, data);
+    return {
+      status: IoServerStatus.OK,
+      timestamp: new Date(),
+      $metadata: {
+        request: {
+          event,
+          data
+        }
+      }
+    }
+  } catch (error) {
+    return {
+      timestamp: new Date(),
+      status: IoServerStatus.ERROR,
+      $metadata: {
+        request: {
+          event,
+          data
+        }
+      },
+      err: error as Error
+    }
   }
 }
