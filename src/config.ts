@@ -12,6 +12,7 @@ export const verify_env = () => {
   const missingVars = vars.filter((v) => !EnvConfig.has(v));
   if (missingVars.length) {
     logger.fatal(`Missing env vars: ${missingVars.join(", ")}`);
+    process.exit(1);
   }
 };
 

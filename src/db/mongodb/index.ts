@@ -3,6 +3,7 @@ import { logger } from "../../log/logger";
 
 if (!process.env.MONGO_URL) {
   logger.fatal("MONGO_URL was not defined!");
+  process.exit(1);
 }
 
 export const connectDB = async (): Promise<void> => {
